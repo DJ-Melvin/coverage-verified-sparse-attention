@@ -1,0 +1,6 @@
+# Keep text files LF everywhere (Slurm/bash break on CRLF).
+* text=auto eol=lf
+*.pdf binary
+*.png binary
+*.npz binary
+*.gz binary

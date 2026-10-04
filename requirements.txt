@@ -1,0 +1,25 @@
+# Versions of the environment the paper's GPU experiments ran in (Python 3.10).
+# torch / triton / flashinfer must match your CUDA driver; install builds of
+# these versions for your CUDA toolkit if the defaults do not.
+torch==2.9.0
+triton==3.5.0
+flashinfer-python==0.5.2
+transformers==4.57.6
+accelerate==1.12.0
+datasets==2.21.0
+numpy==2.2.6
+tqdm==4.67.1
+
+# LongBench metrics. Both are required: without them eval/longbench_e2e.py
+# falls back to token F1 / difflib and summarization and code scores change.
+rouge_score==0.1.2
+fuzzywuzzy==0.18.0
+
+# Figures: the paper's figures were rendered with this version, and
+# scripts/make_figures.sh reproduces them pixel-for-pixel with it.
+matplotlib==3.9.3
+
+pytest==9.0.2
+
+# KVPress baselines (eval/kvpress_longbench.py)
+kvpress==0.5.1

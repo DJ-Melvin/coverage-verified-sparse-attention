@@ -1,0 +1,48 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local environments
+.venv/
+venv/
+.env
+
+# Logs and cluster output
+logs/
+*.log
+slurm-*.out
+*.err
+
+# Ship the figure inputs listed in REPRODUCIBILITY.md.
+# New experiment outputs and raw traces stay local by default.
+/results/*
+!/results/README.md
+!/results/16task_baselines.json
+!/results/ar_mistral7b_v03.json
+!/results/ar_qwen7b.json
+!/results/burst_full.json
+!/results/burst_qwen.json
+!/results/coverage_heatmap_summary.json
+!/results/coverage_motivation_summary.json
+!/results/hybrid_coverage_trace_summary.json
+!/results/kvpress_baselines_llama8b.json
+!/results/kvpress_baselines_mistral7b.json
+!/results/kvpress_baselines_qwen7b.json
+!/results/pareto_bootstrap_cache.json
+!/results/recovery_heatmap_summary.json
+!/results/ruler_final_llama.json
+!/results/ruler_final_mistral.json
+!/results/ruler_final_qwen.json
+!/results/ruler_longctx_eviction_llama.json
+!/results/ruler_longctx_eviction_mistral.json
+!/results/ruler_longctx_eviction_qwen.json
+!/results/ruler_longctx_llama.json
+!/results/ruler_longctx_mistral.json
+!/results/ruler_longctx_qwen.json
+!/results/theory_validation_summary.json
+
+# Plotting byproducts that are not paper figures
+paper/figures/*.png
+paper/figures/budget_fairness_micro.pdf
+paper/figures/budget_fairness_compact.pdf
+paper/figures/bytes_per_token.pdf

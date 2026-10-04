@@ -1,0 +1,32 @@
+diff --git a/benchmark/LongBench/pred.py b/benchmark/LongBench/pred.py
+index 80e6450..3b6272d 100644
+--- a/benchmark/LongBench/pred.py
++++ b/benchmark/LongBench/pred.py
+@@ -113,6 +113,10 @@ def get_pred(
+     # HACK: sample 10 examples for debugging
+     # sampled = np.random.choice(data, 10)
+ 
++    import os as _os
++    _maxs=int(_os.environ.get('MAX_SAMPLES','0'))
++    if _maxs>0:
++        data = data.select(range(min(_maxs,len(data)))) if hasattr(data,'select') else data[:_maxs]
+     for json_obj in tqdm(data):
+         torch.cuda.empty_cache()
+         prompt = prompt_format.format(**json_obj)
+@@ -187,12 +191,16 @@ def get_pred(
+                     tokenizer.encode("\n", add_special_tokens=False)[-1],
+                 ],
+             )[0]
++            # FIX: upstream bug - this branch never sets generated_content
++            # (crashes samsum/narrativeqa); recover the generated tail.
++            generated_content = output[input.input_ids.shape[-1]:].tolist()
+         else:
+             with torch.no_grad():
+                 output = model(
+                     input_ids=input.input_ids,
+                     past_key_values=None,
+                     use_cache=True,
++                    num_logits_to_keep=1,
+                 )
+                 past_key_values = output.past_key_values
+                 for input_id in q_input.input_ids[0]:
