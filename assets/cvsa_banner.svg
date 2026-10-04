@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="300" viewBox="0 0 1280 300" role="img" aria-labelledby="title desc">
+  <title id="title">CVSA — Coverage-Verified Sparse Attention</title>
+  <desc id="desc">CVSA wordmark on a dark teal background with a stylized page-selection and verification motif.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#102d3b"/><stop offset="1" stop-color="#091922"/></linearGradient>
+    <radialGradient id="glow"><stop offset="0" stop-color="#28c4b4" stop-opacity=".16"/><stop offset="1" stop-color="#28c4b4" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#c3e9ed" stroke-opacity=".035"/></pattern>
+  </defs>
+  <rect width="1280" height="300" rx="20" fill="url(#background)"/>
+  <rect width="1280" height="300" rx="20" fill="url(#grid)"/>
+  <ellipse cx="1050" cy="148" rx="300" ry="220" fill="url(#glow)"/>
+  <rect x="56" y="45" width="4" height="24" rx="2" fill="#53dcc7"/>
+  <text x="74" y="62" fill="#a7c8ce" font-family="Arial, Helvetica, sans-serif" font-size="14" letter-spacing="3">DRAFT · VERIFY · RECOVER</text>
+  <text x="53" y="172" fill="#f3f8fa" font-family="Arial, Helvetica, sans-serif" font-size="100" font-weight="700" letter-spacing="-4">CVSA<tspan fill="#53dcc7">.</tspan></text>
+  <text x="58" y="219" fill="#d2e3e8" font-family="Arial, Helvetica, sans-serif" font-size="25">Coverage-Verified Sparse Attention</text>
+  <text x="58" y="254" fill="#8cabb6" font-family="Arial, Helvetica, sans-serif" font-size="16" letter-spacing=".5">Training-free quality control for long-context LLM decoding</text>
+  <g fill="none" stroke="#345b67" stroke-width="1.5">
+    <rect x="782" y="80" width="122" height="140" rx="12"/>
+    <rect x="794" y="68" width="122" height="140" rx="12" fill="#123340"/>
+    <rect x="806" y="56" width="122" height="140" rx="12" fill="#173d49"/>
+  </g>
+  <g fill="#53dcc7">
+    <rect x="826" y="79" width="24" height="24" rx="4" opacity=".8"/>
+    <rect x="859" y="79" width="24" height="24" rx="4" opacity=".22"/>
+    <rect x="892" y="79" width="16" height="24" rx="4" opacity=".22"/>
+    <rect x="826" y="112" width="24" height="24" rx="4" opacity=".22"/>
+    <rect x="859" y="112" width="24" height="24" rx="4" opacity=".8"/>
+    <rect x="892" y="112" width="16" height="24" rx="4" opacity=".22"/>
+    <rect x="826" y="145" width="24" height="24" rx="4" opacity=".22"/>
+    <rect x="859" y="145" width="24" height="24" rx="4" opacity=".22"/>
+    <rect x="892" y="145" width="16" height="24" rx="4" opacity=".8"/>
+  </g>
+  <path d="M929 127H973" fill="none" stroke="#53dcc7" stroke-width="2"/>
+  <circle cx="1001" cy="127" r="28" fill="#143d43" stroke="#53dcc7" stroke-width="2"/>
+  <path d="m989 127 8 8 16-17" fill="none" stroke="#83ecd5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M1029 127h31q16 0 16-16V94q0-16 16-16h40" fill="none" stroke="#53dcc7" stroke-width="2"/>
+  <path d="M1029 127h31q16 0 16 16v17q0 16 16 16h40" fill="none" stroke="#e8ae69" stroke-width="2"/>
+  <rect x="1132" y="58" width="66" height="40" rx="10" fill="#174c48" stroke="#53dcc7"/>
+  <path d="m1154 78 7 7 15-15" fill="none" stroke="#83ecd5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="1132" y="156" width="66" height="40" rx="10" fill="#3a342a" stroke="#e8ae69"/>
+  <path d="M1155 176h20m-10-10v20" fill="none" stroke="#f1c48b" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="985" y="247" text-anchor="middle" fill="#8cabb6" font-family="Arial, Helvetica, sans-serif" font-size="13" letter-spacing="2">SPARSE ATTENTION, WITH FEEDBACK</text>
+</svg>
