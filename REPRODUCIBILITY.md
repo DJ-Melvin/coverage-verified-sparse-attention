@@ -57,7 +57,7 @@ exit code and does not print a full-benchmark mean for an incomplete method.
 ## Figures
 
 `bash scripts/make_figures.sh` redraws every figure on a CPU from the shipped
-files below; each is pixel-identical to the paper's version.
+files below; each matches the paper's version.
 
 | Figure | Script | Input (shipped in `results/`) |
 | --- | --- | --- |
@@ -130,18 +130,19 @@ the corresponding summary after rerunning their source experiments.
 | 16 Check interval, per model | as Table 5; M=1 row: `run_c1_longbench_sweep.sh` | as Table 5, `camera_ready/c1_longbench_*.json` |
 | 17 Dense-layer ablation | `run_dense_layer_ablation_canonical.sh` | `dense_layer_ablation_*.json` |
 | 18 Exact vs. approximate recovery | `run_exact_vs_ar_canonical.sh` (`cvsa_5_90_c4_dL0`, `cvsa_5_90_c4_ar20_dL0`) | `exact_vs_ar_canonical_*.json` |
-| 19–22 RULER | `run_final_ruler_{llama,mistral,qwen}.sh`, `run_final_ruler_longctx_*.sh`, `run_final_ruler_longctx_eviction_baselines.sh` → `eval/ruler_cvsa.py`; tables by `eval/build_ruler_table.py` | `ruler_*.json` (shipped) → `results/tables/ruler_appendix.tex` |
-| 23 70B per task | as Table 4 | as Table 4 |
-| 24–25 Roofline | `eval/plot_bandwidth_roofline.py` (prints both tables) | constants in the script |
-| 26 Long-context throughput, all models | `sbatch scripts/run_latency_longctx.sh {llama,mistral,qwen}` → `eval/latency_benchmark.py` | `longctx_lat_*.json`, `pareto_qwen_*.json` |
-| 27 Per-kernel breakdown | `TIMING=1 OUT=results/camera_ready/longctx_1gpu_timing_llama.json sbatch --gres=gpu:1 scripts/run_longctx_mgpu.sh llama` (same for mistral) → `eval/unified_latency_mgpu.py --timing` | `camera_ready/longctx_1gpu_timing_*.json` |
-| 28 Matched-budget comparison | as Tables 1 and 5 | as Tables 1 and 5 |
-| 29 Traffic accounting | `run_twip_composition.sh` (`twip_85_dL0`, `cvsa_5_90_c4_ar20_dL0_tp85`) | `camera_ready/twip_composition_*.json` |
-| 30 Selector-agnostic gate | `run_selector_agnostic.sh` (`cvsa_5_90_c4_ar20_dL0_selq`); AdaKV-style row: `METHODS=dense,cvsa_5_90_c4_ar20_dL0,cvsa_5_90_c4_ar20_adasel_dL0 OUT=results/camera_ready/adasel_fresh2_llama.json` with the same launcher; no-gate Quest row as Table 1 | `camera_ready/selector_agnostic_*.json`, `camera_ready/adasel_fresh2_*.json` |
-| 31 Tactic reproduction | `run_tactic_validation.sh` and `run_tactic_sink_probe.sh` → `cvsa/tactic.py`. Table: `METHODS=dense,cvsa_5_90_c4_ar20_dL0,tactic_70_sk4,tactic_70_sk4_g90` with `TASKS` split into two jobs (`OUT=...tactic_16task_llama_A.json`, `..._B.json`); validation at target 0.90 with sinks: `METHODS=dense,tactic_90_sk4,tactic_90_sk4_g90 OUT=...tactic_sink_p90_llama.json` with `run_tactic_sink_probe.sh`. Summarize with `python eval/summarize_tactic.py <outputs>` | `camera_ready/tactic_16task_llama_{A,B}.json`, `tactic_validation_llama.json`, `tactic_sink_probe_llama.json`, `tactic_sink_p90_llama.json` |
-| 32 Twilight realized-coverage audit | `run_twilight_longbench.sh` (official Twilight; see below) | Twilight's prediction files |
-| 33 Threshold telemetry | as Table 6 | `tau_ablation_extended_*.json` |
-| 34 Fully lightweight mode | `run_lightnorm.sh` (`cvsa_5_90_c4_ar20_dL0_selq_ln`); exact-normalizer and c4 rows from Table 30's Llama run | `camera_ready/lightnorm_llama_t90.json` |
+| 19 Controls with four-step refresh and dense layer 0 | `run_matched_compute_aligned.sh` (`fixed_9_r4_dL0`, `fixed_10_r4_dL0`, `staticpol_r4_dL0`; the offline budget table comes from `run_static_policy_ablation.sh`, Table 7); CVSA-c4 reference row as Table 18 | `camera_ready/matched_compute_aligned_*.json` |
+| 20 70B per task | as Table 4 | as Table 4 |
+| 21–22 Roofline | `eval/plot_bandwidth_roofline.py` (prints both tables) | constants in the script |
+| 23 Long-context throughput, all models | `sbatch scripts/run_latency_longctx.sh {llama,mistral,qwen}` → `eval/latency_benchmark.py` | `longctx_lat_*.json`, `pareto_qwen_*.json` |
+| 24 Per-kernel breakdown | `TIMING=1 OUT=results/camera_ready/longctx_1gpu_timing_llama.json sbatch --gres=gpu:1 scripts/run_longctx_mgpu.sh llama` (same for mistral) → `eval/unified_latency_mgpu.py --timing` | `camera_ready/longctx_1gpu_timing_*.json` |
+| 25 Matched-budget comparison | as Tables 1 and 5 | as Tables 1 and 5 |
+| 26 Traffic accounting | `run_twip_composition.sh` (`twip_85_dL0`, `cvsa_5_90_c4_ar20_dL0_tp85`) | `camera_ready/twip_composition_*.json` |
+| 27 Selector-agnostic gate | `run_selector_agnostic.sh` (`cvsa_5_90_c4_ar20_dL0_selq`); AdaKV-style row: `METHODS=dense,cvsa_5_90_c4_ar20_dL0,cvsa_5_90_c4_ar20_adasel_dL0 OUT=results/camera_ready/adasel_fresh2_llama.json` with the same launcher; no-gate Quest row as Table 1 | `camera_ready/selector_agnostic_*.json`, `camera_ready/adasel_fresh2_*.json` |
+| 28 Tactic reproduction | `run_tactic_validation.sh` and `run_tactic_sink_probe.sh` → `cvsa/tactic.py`. Table: `METHODS=dense,cvsa_5_90_c4_ar20_dL0,tactic_70_sk4,tactic_70_sk4_g90` with `TASKS` split into two jobs (`OUT=...tactic_16task_llama_A.json`, `..._B.json`); validation at target 0.90 with sinks: `METHODS=dense,tactic_90_sk4,tactic_90_sk4_g90 OUT=...tactic_sink_p90_llama.json` with `run_tactic_sink_probe.sh`. Summarize with `python eval/summarize_tactic.py <outputs>` | `camera_ready/tactic_16task_llama_{A,B}.json`, `tactic_validation_llama.json`, `tactic_sink_probe_llama.json`, `tactic_sink_p90_llama.json` |
+| 29 Twilight realized-coverage audit | `run_twilight_longbench.sh` (official Twilight; see below) | Twilight's prediction files |
+| 30 Threshold telemetry | as Table 6 | `tau_ablation_extended_*.json` |
+| 31 Fully lightweight mode | `run_lightnorm.sh` (`cvsa_5_90_c4_ar20_dL0_selq_ln`); exact-normalizer and c4 rows from Table 27's Llama run | `camera_ready/lightnorm_llama_t90.json` |
+| 32–35 RULER | `run_final_ruler_{llama,mistral,qwen}.sh`, `run_final_ruler_longctx_*.sh`, `run_final_ruler_longctx_eviction_baselines.sh` → `eval/ruler_cvsa.py`; tables by `eval/build_ruler_table.py` | `ruler_*.json` (shipped) → `results/tables/ruler_appendix.tex` |
 
 Tactic shards: A = `narrativeqa+qmsum+hotpotqa+triviaqa+trec+multifieldqa_en+qasper`,
 B = `passage_count+musique+passage_retrieval_en+gov_report+samsum+2wikimqa+repobench-p+multi_news+lcc`.
@@ -160,7 +161,7 @@ B = `passage_count+musique+passage_retrieval_en+gov_report+samsum+2wikimqa+repob
 
 ## Twilight
 
-The audit in Table 32 runs the official implementation:
+The audit in Table 29 runs the official implementation:
 
 ```bash
 git clone --recursive https://github.com/tsinghua-ideal/Twilight

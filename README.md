@@ -61,12 +61,12 @@ and serves a dual role as the acceptance criterion and the interpolation weight
 for recovery. *Coverage-Verified Sparse Attention* (CVSA) turns coverage into a
 training-free, closed-loop verify-then-correct decode loop that accepts
 high-coverage drafts and recovers only the heads that fall short, with no
-sampling, no draft model, and no speculative-decoding infrastructure. Turning
-verification on matters far more than tuning its threshold, and matched-budget
-comparisons confirm the gain is structural. On LongBench at 7B and 70B, CVSA
-comes within 1.13 points of dense attention, statistically matching it at 70B,
-and it loses 0.8 points on RULER; measured throughput reaches 6.21× at 128K
-context.
+sampling, no draft model, and no speculative-decoding infrastructure. Quality
+varies by only 0.14 points across the threshold sweep; budget and scheduling
+ablations characterize the deployed operating point. On LongBench at 7B and
+70B, CVSA comes within 1.13 points of dense attention, statistically matching
+it at 70B, and it loses 0.8 points on RULER; measured median decode-step
+speedup reaches 6.21× at 128K context.
 
 </details>
 

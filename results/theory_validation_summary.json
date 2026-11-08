@@ -138250,7 +138250,7 @@
       "median_ratio": 1.0000105892333724,
       "n_valid_cells": 46080
     },
-    "Mistral-7B  (8:1 GQA)": {
+    "Mistral-7B  (4:1 GQA)": {
       "actual_error": [
         0.0365057,
         0.0416025,

@@ -217,13 +217,13 @@ def main() -> None:
         bbox=dict(boxstyle="round,pad=0.38", facecolor="#f0f0f0",
                   edgecolor="0.75", linewidth=0.8),
     )
-    ax3.set_xlabel("Per-layer mean coverage (%)")
+    ax3.set_xlabel("Per-layer acceptance rate (%)")
     ax3.set_ylabel("Number of layers")
     ax3.legend(loc="upper left", bbox_to_anchor=(0.02, 0.98),
                framealpha=0.92, edgecolor="0.8", fontsize=8.8,
                borderpad=0.45, labelspacing=0.32, handlelength=1.4)
     ax3.grid(True, axis="y")
-    ax3.text(0.88, 0.42, r"$\tau$=0.90", fontsize=8, color="black",
+    ax3.text(0.88, 0.42, "90%", fontsize=8, color="black",
              rotation=90, ha="center", va="center", transform=ax3.transAxes)
 
     (REPO / "paper/figures").mkdir(parents=True, exist_ok=True)

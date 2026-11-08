@@ -47,7 +47,10 @@ def make_backend(method: str, config, block_size: int):
     Method format:
         dense                — FlashInfer dense baseline
         fixed_{B}[_adasel]   — Fixed sparse, B% budget, no verification
-                               (adasel: AdaKV-style cross-head allocation)
+                               (adasel: AdaKV-style cross-head allocation;
+                               r{N}: re-select pages every N steps, default
+                               16; dL{L}: layer L always dense, e.g.
+                               fixed_9_r4_dL0)
         cvsa_{B}_{T}         — CVSA, B% budget, tau=T/100 (fixed interval R=16)
         cvsa_{B}_{T}_c{M}    — Lazy scheduling with check interval M
         cvsa_{B}_{T}_cv{N}   — Coverage gate every N steps on cached page
@@ -66,7 +69,7 @@ def make_backend(method: str, config, block_size: int):
                                anywhere)
         cvsa_{B}_{T}_tp{P}   — Twilight-style top-p selector WITH the coverage
                                gate ("Twilight+CVSA" composition)
-        staticpol[_dL{L}]    — Static offline per-(layer, head) budgets, no
+        staticpol[_r{N}][_dL{L}] — Static offline per-(layer, head) budgets, no
                                verification (table JSON path via env var
                                CVSA_STATIC_BUDGET_TABLE)
         twip_{P}[_dL{L}]     — Twilight-style pre-hoc top-p selector (per-head
@@ -99,6 +102,17 @@ def make_backend(method: str, config, block_size: int):
         parts = method.split("_")
         budget_pct = int(parts[1]) / 100.0
         adaptive = "adasel" in parts
+        # Optional tokens (absent = original behaviour): r{N} re-selects pages
+        # every N steps (default 16); dL{L} keeps layer(s) L dense. Used by the
+        # matched-compute control that refreshes as often as CVSA-c4 checks and
+        # keeps layer 0 dense like CVSA, e.g. fixed_9_r4_dL0.
+        reuse_interval = 16
+        dense_layers = None
+        for p in parts[2:]:
+            if p.startswith("r") and p[1:].isdigit():
+                reuse_interval = int(p[1:])
+            elif p.startswith("dL"):
+                dense_layers = [int(x) for x in p[2:].split(".")]
         # CVSA with tau=0 → always accept → pure sparse, no verification
         return CVSABackend(
             num_kv_heads=config.num_kv_heads,
@@ -108,7 +122,8 @@ def make_backend(method: str, config, block_size: int):
             num_layers=config.num_layers,
             budget_pct=budget_pct,
             coverage_threshold=0.0,  # always accept = fixed sparse
-            reuse_interval=16,
+            reuse_interval=reuse_interval,
+            dense_layers=dense_layers,
             adaptive_selection=adaptive,
         )
 
@@ -118,8 +133,9 @@ def make_backend(method: str, config, block_size: int):
         # verification, no recovery. The DuoAttention-style control that
         # isolates dynamic routing from static budget shape.
         # Table JSON from eval/build_static_budget_table.py, path via
-        # CVSA_STATIC_BUDGET_TABLE. Supported suffix: dL{L} (e.g.
-        # staticpol_dL0). Selection ranking = same exact scorer as CVSA.
+        # CVSA_STATIC_BUDGET_TABLE. Supported suffixes: r{N} and dL{L} (e.g.
+        # staticpol_dL0, staticpol_r4_dL0). Selection ranking = same exact
+        # scorer as CVSA.
         table_path = os.environ.get("CVSA_STATIC_BUDGET_TABLE", "")
         if not table_path:
             raise ValueError(
@@ -128,9 +144,12 @@ def make_backend(method: str, config, block_size: int):
         with open(table_path) as f:
             table = json.load(f)
         dense_layers = None
+        reuse_interval = 16          # same convention as fixed_* controls
         for p in method.split("_")[1:]:
             if p.startswith("dL"):
                 dense_layers = [int(x) for x in p[2:].split(".")]
+            elif p.startswith("r") and p[1:].isdigit():
+                reuse_interval = int(p[1:])   # e.g. staticpol_r4_dL0
         return CVSABackend(
             num_kv_heads=config.num_kv_heads,
             num_q_heads=config.num_q_heads,
@@ -139,7 +158,7 @@ def make_backend(method: str, config, block_size: int):
             num_layers=config.num_layers,
             budget_pct=float(table.get("base_budget", 0.05)),
             coverage_threshold=0.0,  # always accept = no verification
-            reuse_interval=16,       # same convention as fixed_* controls
+            reuse_interval=reuse_interval,
             dense_layers=dense_layers,
             static_budget_table={int(l): v for l, v in table["layers"].items()},
         )

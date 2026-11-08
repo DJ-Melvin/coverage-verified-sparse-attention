@@ -57,9 +57,9 @@ BASELINES = {
 
 # CVSA effective budgets from Table 2a note (per-model averages from latency bench)
 CVSA = {
-    'Llama-3.1-8B': {'c2': (16.5, 42.46), 'c4': (12.3, 41.87)},
+    'Llama-3.1-8B': {'c2': (16.5, 42.49), 'c4': (12.3, 41.87)},
     'Mistral-7B':   {'c2': (15.8, 42.53), 'c4': (11.8, 41.71)},
-    'Qwen2.5-7B':   {'c2': (15.9, 38.39), 'c4': (12.0, 38.54)},
+    'Qwen2.5-7B':   {'c2': (15.9, 39.19), 'c4': (12.0, 38.54)},
 }
 
 DENSE = {

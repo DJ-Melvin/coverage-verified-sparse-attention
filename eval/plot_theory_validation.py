@@ -30,7 +30,7 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 MODELS = [
     ("Llama-3.1-8B  (4:1 GQA)", "results/error_bound_validation_llama_ctok.json"),
-    ("Mistral-7B  (8:1 GQA)",   "results/error_bound_validation_mistral_ctok.json"),
+    ("Mistral-7B  (4:1 GQA)",   "results/error_bound_validation_mistral_ctok.json"),
     ("Qwen2.5-7B  (7:1 GQA)",   "results/error_bound_validation_qwen_ctok.json"),
 ]
 SUMMARY_PATH = "results/theory_validation_summary.json"

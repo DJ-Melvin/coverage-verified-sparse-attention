@@ -44,6 +44,7 @@ incomplete runs return a nonzero exit code.
 | Purpose | Script |
 | --- | --- |
 | Matched effective compute | `run_fixed_budget_noverify.sh`, `run_static_policy_ablation.sh` |
+| Controls with four-step refresh and dense layer 0 | `run_matched_compute_aligned.sh` (after `run_static_policy_ablation.sh`) |
 | Selector-agnostic gate, fully lightweight mode | `run_selector_agnostic.sh`, `run_lightnorm.sh` |
 | Top-p selector with and without the gate | `run_twip_composition.sh` |
 | Tactic reproduction | `run_tactic_validation.sh`, `run_tactic_sink_probe.sh` |
