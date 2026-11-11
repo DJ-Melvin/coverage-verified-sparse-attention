@@ -12,10 +12,9 @@
 
 # Extended tau sweep on the canonical c4/ar20/dL0/5%-budget config.
 #
-# Adds tau=0.80 and tau=0.97 to the original 0.85/0.90/0.95 set, so the
-# sweep covers a wide enough range to refute "tau cherry-picked" concerns.
-# Also extends to Mistral and Qwen (the original tau_ablation.json was
-# Llama-only).
+# Adds tau=0.80 and tau=0.97 to the original 0.85/0.90/0.95 set to widen
+# the sweep range. Also extends to Mistral and Qwen (the original
+# tau_ablation.json was Llama-only).
 #
 # Usage:
 #   sbatch scripts/run_tau_ablation_extended.sh llama

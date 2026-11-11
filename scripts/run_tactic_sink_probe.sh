@@ -118,8 +118,8 @@ echo "Done: $(date)"
 echo "Wall clock: $(( (END - START) / 60 )) min"
 echo "Output: ${OUT}"
 echo
-echo "=== 判讀 ==="
-echo "不要用肉眼讀上面那張表,跑彙整器(它用 token-weighted 的 read 基準,"
-echo "並且會把 gated 變體排除在 fidelity 判定之外):"
+echo "=== Interpretation ==="
+echo "Do not read the table above by eye; run the summarizer, which uses the"
+echo "token-weighted read baseline and excludes gated variants from the fidelity verdict:"
 echo
 echo "    python eval/summarize_tactic.py ${OUT}"
