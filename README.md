@@ -8,7 +8,7 @@
 
 <p>
   <img src="https://img.shields.io/badge/NeurIPS_2026-Poster-087e8b?style=flat-square" alt="NeurIPS 2026 Poster">
-  <img src="https://img.shields.io/badge/arXiv-coming_soon-b31b1b?style=flat-square" alt="Paper on arXiv — coming soon">
+  <a href="https://arxiv.org/abs/2611.10634"><img src="https://img.shields.io/badge/arXiv-2611.10634-b31b1b?style=flat-square" alt="arXiv 2611.10634"></a>
   <a href="#installation"><img src="https://img.shields.io/badge/Python-3.10-3776ab?style=flat-square" alt="Python 3.10"></a>
   <a href="REPRODUCIBILITY.md"><img src="https://img.shields.io/badge/Reproduction-Guide-087e8b?style=flat-square" alt="Reproduction guide"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-64748b?style=flat-square" alt="MIT license"></a>
